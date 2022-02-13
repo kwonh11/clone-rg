@@ -1,9 +1,8 @@
 import React from 'react';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, StyleSheet, FlatList, Text, View} from 'react-native';
 import {normalize} from '@utils/responsiveSize';
 
 import TopSectionCarousel from '../common/TopSectionCarousel';
-import {FlatList} from 'react-native-gesture-handler';
 
 const FULL_WIDTH = Dimensions.get('window').width;
 

@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import Navigator from '~/navigator/RootBottomNavigator';
+import store from '@redux/store';
 
 const App = () => {
   return (
