@@ -2,10 +2,10 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {normalize} from '~/utils/responsiveSize';
 
-export default function Tutor() {
+export default function Lecture() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>튜터 화면입니다.</Text>
+      <Text style={styles.text}>1:1수업 화면입니다.</Text>
     </View>
   );
 }

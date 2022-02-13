@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {normalize} from '~/utils/responsiveSize';
 
-export default function Class() {
+export default function MyActivity() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>학습활동 화면입니다.</Text>

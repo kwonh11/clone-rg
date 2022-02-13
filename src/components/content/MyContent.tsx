@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {normalize} from '~/utils/responsiveSize';
+import {StyleSheet, Dimensions, Text, View} from 'react-native';
+import {normalize} from '@utils/responsiveSize';
 
-export default function Tutor() {
+const FULL_WIDTH = Dimensions.get('window').width;
+export default function MyContent() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>튜터 화면입니다.</Text>
+      <Text style={styles.text}>내 콘텐츠 화면입니다.</Text>
     </View>
   );
 }
@@ -14,6 +15,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    width: FULL_WIDTH,
   },
   text: {
     fontSize: normalize(13),
