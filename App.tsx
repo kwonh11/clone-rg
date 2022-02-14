@@ -7,15 +7,19 @@ import {
   Text,
   View,
 } from 'react-native';
+import {Provider} from 'react-redux';
+
 import Navigator from '~/navigator/RootBottomNavigator';
 import store from '@redux/store';
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.flex}>
-      <StatusBar barStyle="light-content" />
-      <Navigator />
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={styles.flex}>
+        <StatusBar barStyle="light-content" />
+        <Navigator />
+      </SafeAreaView>
+    </Provider>
   );
 };
 

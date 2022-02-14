@@ -1,7 +1,12 @@
 import produce from 'immer';
 
-export function createReducer(initialState: any, handlerMap: any) {
-  return function (state = initialState, action: any) {
+interface Action<T> {
+  type: string;
+  payload: T;
+}
+
+export function createReducer<S>(initialState: S, handlerMap: any) {
+  return function (state = initialState, action: Action<any>) {
     return produce(state, (draft: any) => {
       const handler = handlerMap[action.type];
       if (handler) {
