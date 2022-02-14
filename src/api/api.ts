@@ -41,7 +41,21 @@ const CAROUSEL_DATA: CarouselData[] = [
     color: 'skyblue',
   },
 ];
+const WEBINAR_CATEGORIES = [
+  '인기 웨비나',
+  '링글 Radio 영상',
+  '링글 LIVE영상',
+  '비즈니스/커리어',
+  '실생활 영어',
+  '영어와 공부',
+  '트렌드/문화',
+  '영어권 스쿨라이프',
+  '찜한 웨비나',
+];
 
 export function callApiCarouselData(): Promise<CarouselData[]> {
   return Promise.resolve([...CAROUSEL_DATA]);
+}
+export function callApiWebinarCategories(): Promise<string[]> {
+  return Promise.resolve([...WEBINAR_CATEGORIES]);
 }

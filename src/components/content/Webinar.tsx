@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {Dimensions, FlatList, StyleSheet, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {actions} from '~/redux/webinar/state';
-import TopSectionCarousel from '../common/TopSectionCarousel';
+import TopSection from '../common/TopSection';
 
 const FULL_WIDTH = Dimensions.get('window').width;
 
@@ -19,7 +19,7 @@ export default function Webinar() {
 
   return (
     <View style={styles.container}>
-      <FlatList ListHeaderComponent={TopSectionCarousel} />
+      <FlatList ListHeaderComponent={TopSection} />
     </View>
   );
 }

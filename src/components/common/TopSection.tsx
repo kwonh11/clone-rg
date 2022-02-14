@@ -13,11 +13,12 @@ import {
 } from 'react-native';
 import {useRef} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useSelector} from 'react-redux';
 
 import {normalize} from '~/utils/responsiveSize';
-import {useSelector} from 'react-redux';
 import {RootState} from '~/redux/store';
 import {CarouselData} from '~/redux/webinar/type';
+import WebinarCategory from '../content/WebinarCategory';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -76,7 +77,7 @@ function renderItem({item, index}: RenderItemProps<CarouselData>) {
   );
 }
 
-export default function TopSectionCarousel() {
+export default function TopSection() {
   const [index, setIndex] = useState<number>(0);
   const list = useSelector<RootState, CarouselData[]>(
     state => state.webinar.list,
@@ -102,6 +103,7 @@ export default function TopSectionCarousel() {
           inactiveDotScale={0.6}
         />
       </View>
+      <WebinarCategory />
     </View>
   );
 }
