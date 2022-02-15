@@ -16,11 +16,12 @@ import {normalize} from '~/utils/responsiveSize';
 interface Props {
   index: number;
   item: WebinarCollection;
+  isLast: boolean;
 }
 export default function WebinarSectionList(props: Props) {
-  const {item} = props;
+  const {item, isLast} = props;
   return (
-    <View style={styles.container}>
+    <View style={isLast ? styles.containerLast : styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>{item.name}</Text>
         <Icon name="chevron-right" style={styles.rightIcon} />
@@ -45,6 +46,9 @@ export default function WebinarSectionList(props: Props) {
 const styles = StyleSheet.create({
   container: {
     marginBottom: normalize(40),
+  },
+  containerLast: {
+    marginBottom: normalize(80),
   },
   header: {
     paddingHorizontal: normalize(16),

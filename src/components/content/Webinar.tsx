@@ -28,7 +28,12 @@ export default function Webinar() {
         ListHeaderComponent={TopSection}
         showsVerticalScrollIndicator={false}
         data={webinarSectionList}
-        renderItem={props => <WebinarSectionList {...props} />}
+        renderItem={props => (
+          <WebinarSectionList
+            {...props}
+            isLast={webinarSectionList.length === props.index + 1}
+          />
+        )}
       />
     </View>
   );
@@ -37,7 +42,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    marginBottom: normalize(50),
     width: FULL_WIDTH,
   },
   text: {
