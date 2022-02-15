@@ -28,20 +28,7 @@ const MENULIST: string[] = ['웨비나', '교재', '데일리브리프', '내콘
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function Content() {
   const [tabIndex, setTabIndex] = useState<keyof typeof MENULIST>(0);
-
   const scrollViewRef = useRef<ScrollView>(null);
-  const viewConfigRef = useRef({
-    // viewablePercentThreshold: 100,
-    // viewAreaCoveragePercentThreshold: 100,
-    waitForInteraction: true,
-    itemVisiblePercentThreshold: 50,
-  });
-
-  const onViewableItemsChanged = (info: any) => {
-    console.log('onViewableItemsChanged info', info);
-    console.log('onViewableItemsChanged info.index', info.changed[0].index);
-    // setTabIndex(info.changed[0].index);
-  };
 
   const onScrollHorizontal = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (!e?.nativeEvent) {
@@ -100,7 +87,7 @@ export default function Content() {
         disableIntervalMomentum={true}
         style={styles.swipableContentWrap}
         onMomentumScrollEnd={onScrollHorizontal}>
-        {/* 컨텐츠가 한번에 로드되므로, 데이터 양이 많다면 FlatList로 변경 필요 */}
+        {/*데이터 양이 많다면 FlatList로 변경 필요 */}
         <Webinar />
         <TextBook />
         <DailyBrief />
@@ -112,6 +99,7 @@ export default function Content() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   topMenuWrap: {
     display: 'flex',

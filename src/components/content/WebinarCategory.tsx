@@ -29,10 +29,13 @@ export default function WebinarCategory() {
       <ScrollView
         style={styles.horizontalScrollView}
         horizontal={true}
-        showsHorizontalScrollIndicator={false}>
+        showsHorizontalScrollIndicator={false}
+        bounces={false}>
         <View style={styles.slideWrap}>
           {categories.map((category, i) => (
-            <TouchableOpacity style={styles.categoryButton}>
+            <TouchableOpacity
+              style={styles.categoryButton}
+              key={`webinar_category_${category}`}>
               <Text style={styles.buttonText}>{category}</Text>
             </TouchableOpacity>
           ))}
