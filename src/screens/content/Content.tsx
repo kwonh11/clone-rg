@@ -1,27 +1,20 @@
-import React, {
-  useState,
-  useRef,
-  LegacyRef,
-  MutableRefObject,
-  useEffect,
-} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  View,
-  SectionList,
-  ScrollView,
   Dimensions,
-  NativeSyntheticEvent,
   NativeScrollEvent,
+  NativeSyntheticEvent,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import DailyBrief from '~/components/content/DailyBrief';
 import MyContent from '~/components/content/MyContent';
 import TextBook from '~/components/content/Textbook';
 import Webinar from '~/components/content/Webinar';
-
 import {normalize} from '~/utils/responsiveSize';
 
 const MENULIST: string[] = ['웨비나', '교재', '데일리브리프', '내콘텐츠'];

@@ -1,13 +1,16 @@
-import {ColorValue, Image} from 'react-native';
+import {ColorValue} from 'react-native';
+import {HTMLSource} from 'react-native-render-html';
 
-export interface CarouselData {
+export interface Tutor {
+  tutor: string;
+  tutorImage: string;
+  tutorAffiliation: string;
+}
+export interface CarouselData extends Tutor {
   title: string;
   tag: string;
   date: string;
   region: string;
-  tutor: string;
-  tutorImage: string;
-  tutorAffiliation: string;
   voluteerCount: number;
   volunteerLimit: number;
   color: ColorValue;
@@ -16,15 +19,12 @@ export interface WebinarState {
   carouselList: CarouselData[];
   webinarCollectionList: WebinarCollection[];
 }
-export interface WebinarCard {
+export interface WebinarCard extends Tutor {
   id: number;
   isLike: boolean;
   thumbnail: string;
   tag: string;
   title: string;
-  tutor: string;
-  tutorImage: string;
-  tutorAffiliation: string;
 }
 export interface Action<T> {
   type: string;
@@ -33,4 +33,12 @@ export interface Action<T> {
 export interface WebinarCollection {
   name: string;
   list: WebinarCard[];
+}
+export interface WebinarVideo {
+  videoName: string;
+  runningTime: string;
+  videoUrl: string;
+}
+export interface WebinarDetail extends WebinarCard, WebinarVideo {
+  context: HTMLSource;
 }

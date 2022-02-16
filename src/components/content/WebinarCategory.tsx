@@ -1,17 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {
-  StatusBar,
-  Button,
-  View,
+  Dimensions,
   ScrollView,
   StyleSheet,
-  Dimensions,
   Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
-
-import {normalize} from '~/utils/responsiveSize';
 import {callApiWebinarCategories} from '~/api/api';
+import {normalize} from '~/utils/responsiveSize';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function WebinarCategory() {

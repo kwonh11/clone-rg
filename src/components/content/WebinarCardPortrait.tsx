@@ -1,64 +1,86 @@
 import React, {useState} from 'react';
 import {
-  StatusBar,
-  Button,
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  ImageBackground,
   Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import {WebinarCard} from '~/redux/webinar/type';
 import {normalize} from '~/utils/responsiveSize';
 
-export default function WebinarCardPortrait(props: WebinarCard) {
-  const [isLike, setIsLike] = useState<boolean>(props.isLike);
+interface Props extends WebinarCard {
+  isLast: boolean;
+  navigateDetail: (id: number) => void;
+}
+export default function WebinarCardPortrait({
+  isLast,
+  isLike: isLikeProps,
+  tutorImage,
+  thumbnail,
+  tag,
+  title,
+  tutor,
+  id,
+  navigateDetail,
+  tutorAffiliation,
+}: Props) {
+  const [isLike, setIsLike] = useState<boolean>(isLikeProps);
 
+  const onPressCard = () => {
+    navigateDetail(id);
+  };
   const onPressLike = () => {
     setIsLike(!isLike);
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.topSection}>
-        <ImageBackground
-          source={{uri: props.thumbnail}}
-          style={styles.topImage}
-          resizeMode="cover"
-          borderTopRightRadius={10}
-          borderTopLeftRadius={10}
-        />
-        <TouchableOpacity style={styles.heartIconWrap} onPress={onPressLike}>
-          <Icon
-            name="heart-sharp"
-            style={isLike ? styles.heartIconPositive : styles.heartIconNegative}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.bottomSection}>
-        <View style={styles.bottomTextWrap}>
-          <Text style={styles.tagText}>#{props.tag}</Text>
-          <Text style={styles.titleText}>{props.title}</Text>
-        </View>
-        <View style={styles.tutorWrap}>
-          <Image
-            source={{uri: props.tutorImage}}
-            style={styles.tutorImage}
+    <TouchableWithoutFeedback onPress={onPressCard}>
+      <View style={[styles.container, isLast && styles.last]}>
+        <View style={styles.topSection}>
+          <ImageBackground
+            source={{uri: thumbnail}}
+            style={styles.topImage}
             resizeMode="cover"
+            borderTopRightRadius={10}
+            borderTopLeftRadius={10}
           />
-          <View style={styles.tutorInfoWrap}>
-            <Text style={styles.tutorNameTextBold}>{props.tutor}</Text>
-            <Text style={styles.tutorInfoText}>{props.tutorAffiliation}</Text>
+          <TouchableOpacity style={styles.heartIconWrap} onPress={onPressLike}>
+            <Icon
+              name="heart-sharp"
+              style={
+                isLike ? styles.heartIconPositive : styles.heartIconNegative
+              }
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.bottomSection}>
+          <View style={styles.bottomTextWrap}>
+            <Text style={styles.tagText}>#{tag}</Text>
+            <Text style={styles.titleText}>{title}</Text>
+          </View>
+          <View style={styles.tutorWrap}>
+            <Image
+              source={{uri: tutorImage}}
+              style={styles.tutorImage}
+              resizeMode="cover"
+            />
+            <View style={styles.tutorInfoWrap}>
+              <Text style={styles.tutorNameTextBold}>{tutor}</Text>
+              <Text style={styles.tutorInfoText}>{tutorAffiliation}</Text>
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 const styles = StyleSheet.create({
+  last: {
+    marginRight: normalize(40),
+  },
   container: {
     width: normalize(240),
     height: normalize(366),

@@ -1,8 +1,13 @@
 import {
   CarouselData,
+  Tutor,
   WebinarCard,
   WebinarCollection,
+  WebinarDetail,
+  WebinarVideo,
 } from '~/redux/webinar/type';
+import store from '@redux/store';
+import {HTMLSource} from 'react-native-render-html';
 
 const CAROUSEL_DATA: CarouselData[] = [
   {
@@ -102,6 +107,28 @@ const WEBINAR_CARD_CATEGORIES: string[] = [
   '트렌드/문화',
   '영어권 스쿨라이프',
 ];
+const WEBINAR_VIDEO_DATA: WebinarVideo[] = [
+  {
+    videoName: 'What language tests have you taken? How was your experience?',
+    runningTime: '0:45',
+    videoUrl:
+      'https://s3.ap-northeast-2.amazonaws.com/recording-video-asia/app/coconut/video_78299_480.mp4',
+  },
+  {
+    videoName:
+      'What are the pros and cons of language tests? What alternatives are there?',
+    runningTime: '1:08',
+    videoUrl:
+      'https://s3.ap-northeast-2.amazonaws.com/recording-video-asia/app/coconut/video_78299_480.mp4',
+  },
+  {
+    videoName:
+      'Are the knowledges gained from studying the tests useful for language learning?',
+    runningTime: '0:51',
+    videoUrl:
+      'https://s3.ap-northeast-2.amazonaws.com/recording-video-asia/www/coconut/video_55812_480.mp4',
+  },
+];
 
 export function callApiCarouselData(): Promise<CarouselData[]> {
   return Promise.resolve([...CAROUSEL_DATA]);
@@ -135,4 +162,67 @@ function gernerateRandomWebinarArray(count: number, lastId = 0) {
     }
     return arr;
   };
+}
+
+export function callApiGetWebinarDetail(
+  id: number,
+): Promise<WebinarDetail | null> {
+  const {
+    webinar: {webinarCollectionList},
+  } = store.getState();
+  const list = webinarCollectionList.map(collection => collection.list).flat();
+  const found = list.find(webinar => webinar.id === id);
+  const randomIndex = Math.floor(Math.random() * 3);
+  const context = {
+    html: `<h3>Hello World</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <h4>1. What is love</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    `,
+  };
+  return found
+    ? Promise.resolve({
+        ...found,
+        ...WEBINAR_VIDEO_DATA[randomIndex],
+        context,
+      })
+    : Promise.resolve(null);
+}
+
+export function callApiGetOtherWebinar(
+  tutorName: string,
+): Promise<WebinarCard[]> {
+  const {
+    webinar: {webinarCollectionList},
+  } = store.getState();
+  const list = webinarCollectionList.map(collection => collection.list).flat();
+  const otherWebinars: WebinarCard[] = list.filter(
+    webinar => webinar.tutor === tutorName,
+  );
+  return Promise.resolve(otherWebinars);
+}
+
+export function callApiWebinarVideoArray(): Promise<WebinarVideo[]> {
+  return Promise.resolve(getRandomWebinarVideoArray());
+}
+function getRandomWebinarVideoArray(): WebinarVideo[] {
+  const length = Math.floor(Math.random() * 5) + 5;
+  let arr = [];
+  for (let i = 0; i < length; i++) {
+    const index = Math.floor(Math.random() * 3);
+    arr.push(WEBINAR_VIDEO_DATA[index]);
+  }
+  return arr;
+}
+
+export function callApiGetWebinarListByTag(
+  tagName: string,
+): Promise<WebinarCard[] | []> {
+  const {
+    webinar: {webinarCollectionList},
+  } = store.getState();
+  const list = webinarCollectionList.find(
+    collection => collection.name === tagName,
+  )?.list;
+  return list ? Promise.resolve([...list]) : Promise.resolve([]);
 }

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {Provider} from 'react-redux';
 
-import Navigator from '~/navigator/RootBottomNavigator';
+import Navigator from '~/navigator/RootStackNavigator';
 import store from '@redux/store';
 
 const App = () => {
