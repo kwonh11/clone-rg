@@ -142,16 +142,19 @@ const styles = StyleSheet.create({
     fontSize: normalize(18),
     marginRight: normalize(16),
   },
-  horizontalScrollView: {},
+  horizontalScrollView: {
+    paddingBottom: 10,
+  },
   slideWrap: {
     marginTop: normalize(13),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+
     flexWrap: 'nowrap',
     height: normalize(50),
-    paddingBottom: 2,
+    paddingBottom: 10,
     paddingHorizontal: normalize(16),
   },
   tag: {

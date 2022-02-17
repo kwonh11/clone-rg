@@ -3,6 +3,7 @@ import {
   Dimensions,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  PanResponder,
   ScrollView,
   StyleSheet,
   Text,
@@ -22,6 +23,21 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function Content() {
   const [tabIndex, setTabIndex] = useState<keyof typeof MENULIST>(0);
   const scrollViewRef = useRef<ScrollView>(null);
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: (e, state) => {
+        console.log(state);
+        return true;
+      },
+      onShouldBlockNativeResponder: (e, state) => {
+        console.log(state);
+        return true;
+      },
+      onPanResponderMove: (e, state) => {
+        console.log(state);
+      },
+    }),
+  ).current;
 
   const onScrollHorizontal = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (!e?.nativeEvent) {
@@ -71,7 +87,7 @@ export default function Content() {
           <Ionicons name="search-outline" style={styles.searchIcon} />
         </TouchableOpacity>
       </View>
-
+      {/*
       <ScrollView
         showsHorizontalScrollIndicator={false}
         ref={scrollViewRef}
@@ -80,12 +96,19 @@ export default function Content() {
         disableIntervalMomentum={true}
         style={styles.swipableContentWrap}
         onMomentumScrollEnd={onScrollHorizontal}>
-        {/*데이터 양이 많다면 FlatList로 변경 필요 */}
+
         <Webinar />
         <TextBook />
         <DailyBrief />
         <MyContent />
       </ScrollView>
+     */}
+      <View style={{flex: 1}}>
+        <Webinar />
+        {/* <TextBook />
+        <DailyBrief />
+        <MyContent /> */}
+      </View>
     </View>
   );
 }

@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '~/redux/store';
 import {actions} from '~/redux/webinar/state';
 import {WebinarCollection} from '~/redux/webinar/type';
-import TopSection from '../common/TopSection';
+import TopSection from './TopSection';
 import WebinarSectionList from './WebinarSectionList';
 
 const FULL_WIDTH = Dimensions.get('window').width;

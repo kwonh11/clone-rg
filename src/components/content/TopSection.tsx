@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   Dimensions,
   Image,
+  PanResponder,
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
@@ -12,7 +14,7 @@ import {useSelector} from 'react-redux';
 import {RootState} from '~/redux/store';
 import {CarouselData} from '~/redux/webinar/type';
 import {normalize} from '~/utils/responsiveSize';
-import WebinarCategory from '../content/WebinarCategory';
+import WebinarCategory from './WebinarCategory';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -30,44 +32,46 @@ function renderItem({item, index}: RenderItemProps<CarouselData>) {
   };
   const progressBarWidthStyle = {width: `${limitRate}%`};
   return (
-    <View style={[styles.content, backgroundStyle]}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>UPCOMMING LIVE</Text>
-        <View style={styles.headerCircle} />
-      </View>
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.tagText}>{item.tag}</Text>
-      <Text style={styles.dateText}>
-        {item.date} ({item.region})
-      </Text>
-      <View style={styles.tutorWrap}>
-        <Image
-          source={{uri: item.tutorImage}}
-          style={styles.tutorImage}
-          resizeMode="contain"
-        />
-        <View style={styles.tutorInfoWrap}>
-          <Text style={styles.tutorNameTextBold}>{item.tutor}</Text>
-          <Text style={styles.tutorInfoText}>{item.tutorAffiliation}</Text>
+    <TouchableWithoutFeedback>
+      <View style={[styles.content, backgroundStyle]}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>UPCOMMING LIVE</Text>
+          <View style={styles.headerCircle} />
+        </View>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.tagText}>{item.tag}</Text>
+        <Text style={styles.dateText}>
+          {item.date} ({item.region})
+        </Text>
+        <View style={styles.tutorWrap}>
+          <Image
+            source={{uri: item.tutorImage}}
+            style={styles.tutorImage}
+            resizeMode="contain"
+          />
+          <View style={styles.tutorInfoWrap}>
+            <Text style={styles.tutorNameTextBold}>{item.tutor}</Text>
+            <Text style={styles.tutorInfoText}>{item.tutorAffiliation}</Text>
+          </View>
+        </View>
+        <View style={styles.limitGraphWrap}>
+          <Text style={styles.limitGraphCountText}>
+            현재 신청 {item.voluteerCount} 명
+          </Text>
+          <View style={styles.limitProgressBar}>
+            <View style={[styles.limitProgress, progressBarWidthStyle]} />
+          </View>
+          <Text style={styles.limitGraphLimitText}>
+            전체 정원 {item.volunteerLimit} 명
+          </Text>
+        </View>
+        <View style={styles.goDetailWrap}>
+          <TouchableOpacity style={styles.goDetailButton}>
+            <Text style={styles.goDetailButtonText}>자세히 보기</Text>
+          </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.limitGraphWrap}>
-        <Text style={styles.limitGraphCountText}>
-          현재 신청 {item.voluteerCount} 명
-        </Text>
-        <View style={styles.limitProgressBar}>
-          <View style={[styles.limitProgress, progressBarWidthStyle]} />
-        </View>
-        <Text style={styles.limitGraphLimitText}>
-          전체 정원 {item.volunteerLimit} 명
-        </Text>
-      </View>
-      <View style={styles.goDetailWrap}>
-        <TouchableOpacity style={styles.goDetailButton}>
-          <Text style={styles.goDetailButtonText}>자세히 보기</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -76,7 +80,6 @@ export default function TopSection() {
   const list = useSelector<RootState, CarouselData[]>(
     state => state.webinar.carouselList,
   );
-  // const carouselRef = useRef<Carousel<any>>(null);
   return (
     <View style={styles.carouselContainer}>
       <Carousel
