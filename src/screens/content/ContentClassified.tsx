@@ -48,7 +48,6 @@ export default function ContentClassified() {
     } catch (err) {}
   };
   useEffect(() => {
-    console.log(selectedTag, 'selectedTag');
     getList(tagName);
   }, [tagName, selectedTag]);
   return (

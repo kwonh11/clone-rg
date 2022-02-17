@@ -1,3 +1,6 @@
+import {ParamListBase, useNavigation} from '@react-navigation/native';
+import {} from '@react-navigation/native-stack';
+import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
 import {
   ScrollView,
@@ -10,9 +13,6 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 import {WebinarCard, WebinarCollection} from '~/redux/webinar/type';
 import {normalize} from '~/utils/responsiveSize';
 import WebinarCardPortrait from './WebinarCardPortrait';
-import {ParamListBase, useNavigation, useRoute} from '@react-navigation/native';
-import {} from '@react-navigation/native-stack';
-import {StackNavigationProp} from '@react-navigation/stack';
 
 const TAGS = {
   '추천 웨비나': ['New Webinars'],
@@ -53,6 +53,7 @@ interface Props {
 }
 export default function WebinarSectionList(props: Props) {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+
   const {item, isLast} = props;
 
   const navigateDetail = (id: number) => {

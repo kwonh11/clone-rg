@@ -12,6 +12,7 @@ const FULL_WIDTH = Dimensions.get('window').width;
 
 export default function Webinar() {
   const dispatch = useDispatch();
+
   const webinarSectionList = useSelector<RootState, WebinarCollection[]>(
     state => state.webinar.webinarCollectionList,
   );
@@ -28,6 +29,7 @@ export default function Webinar() {
         ListHeaderComponent={TopSection}
         showsVerticalScrollIndicator={false}
         data={webinarSectionList}
+        onResponderEnd={e => e.stopPropagation()}
         renderItem={props => (
           <WebinarSectionList
             {...props}
