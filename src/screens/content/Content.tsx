@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
   Dimensions,
@@ -12,16 +13,28 @@ import {
   View,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '@redux/store';
 import DailyBrief from '~/components/content/DailyBrief';
 import MyContent from '~/components/content/MyContent';
 import TextBook from '~/components/content/Textbook';
 import Webinar from '~/components/content/Webinar';
 import {normalize} from '~/utils/responsiveSize';
+import {s_common, s_content, s_content_dailybrief, useLocale} from '~/wording';
 
-const MENULIST: string[] = ['웨비나', '교재', '데일리브리프', '내콘텐츠'];
+const MENULIST: object[] = [
+  s_common.webinar,
+  s_common.packets,
+  s_content_dailybrief.title,
+  s_common.my_original,
+];
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function Content() {
+  const navigation = useNavigation();
+  const {t} = useLocale();
+  const languageType = useSelector(
+    (state: RootState) => state.webinar.languageType,
+  );
   const [tabIndex, setTabIndex] = useState<keyof typeof MENULIST>(0);
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -39,6 +52,9 @@ export default function Content() {
   const onPressTopMenu = (index: number) => {
     setTabIndex(index);
   };
+  const onPressSearch = () => {
+    navigation.navigate('selectLanguage');
+  };
 
   useEffect(() => {
     if (scrollViewRef.current) {
@@ -49,6 +65,10 @@ export default function Content() {
       });
     }
   }, [tabIndex]);
+
+  useEffect(() => {
+    console.log('languageType =====> ', languageType);
+  }, [languageType]);
 
   return (
     <View style={styles.container}>
@@ -63,13 +83,15 @@ export default function Content() {
                 style={
                   tabIndex === i ? styles.menuTextActive : styles.menuText
                 }>
-                {name}
+                {t(name)}
               </Text>
               {tabIndex === i && <View style={styles.menuUnderline} />}
             </TouchableOpacity>
           ))}
         </View>
-        <TouchableOpacity style={styles.topMenuRightWrap}>
+        <TouchableOpacity
+          style={styles.topMenuRightWrap}
+          onPress={onPressSearch}>
           <Ionicons name="search-outline" style={styles.searchIcon} />
         </TouchableOpacity>
       </View>
@@ -120,6 +142,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     marginRight: normalize(10),
+    position: 'absolute',
+    right: 10,
   },
   menuTextButton: {
     display: 'flex',

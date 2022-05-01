@@ -6,6 +6,7 @@ export const types = {
 
   SET_CAROUSEL_DATA: 'webinar/SET_CAROUSEL_DATA',
   SET_WEBINAR_COLLECTION_DATA: 'webinar/SET_WEBINAR_COLLECTION_DATA',
+  SET_LANGUAGE: 'webinar/SET_LANGUAGE',
 };
 
 export const actions = {
@@ -20,11 +21,16 @@ export const actions = {
     type: types.SET_WEBINAR_COLLECTION_DATA,
     payload,
   }),
+  setLanguage: (payload: number) => ({
+    type: types.SET_LANGUAGE,
+    payload,
+  }),
 };
 
 export const INITIAL_STATE: WebinarState = {
   carouselList: [],
   webinarCollectionList: [],
+  languageType: 0,
 };
 
 const reducer = createReducer<WebinarState>(INITIAL_STATE, {
@@ -39,6 +45,9 @@ const reducer = createReducer<WebinarState>(INITIAL_STATE, {
     action: Action<WebinarCollection[]>,
   ) => {
     state.webinarCollectionList = action.payload;
+  },
+  [types.SET_LANGUAGE]: (state: WebinarState, action: Action<number>) => {
+    state.languageType = action.payload;
   },
 });
 

@@ -1,6 +1,9 @@
 import {ColorValue} from 'react-native';
 import {HTMLSource} from 'react-native-render-html';
 
+export const LANGUAGE_INDEXS = Array(7).fill(0);
+export type LanguageType = keyof typeof LANGUAGE_INDEXS;
+
 export interface Tutor {
   tutor: string;
   tutorImage: string;
@@ -18,6 +21,7 @@ export interface CarouselData extends Tutor {
 export interface WebinarState {
   carouselList: CarouselData[];
   webinarCollectionList: WebinarCollection[];
+  languageType: number;
 }
 export interface WebinarCard extends Tutor {
   id: number;

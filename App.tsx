@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import {Provider} from 'react-redux';
-
 import Navigator from '~/navigator/RootStackNavigator';
 import store from '@redux/store';
 

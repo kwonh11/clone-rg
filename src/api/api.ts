@@ -7,7 +7,6 @@ import {
   WebinarVideo,
 } from '~/redux/webinar/type';
 import store from '@redux/store';
-import {HTMLSource} from 'react-native-render-html';
 
 const CAROUSEL_DATA: CarouselData[] = [
   {

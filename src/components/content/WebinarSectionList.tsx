@@ -43,7 +43,7 @@ const TAGS = {
   ],
   '영어권 스쿨라이프': ['전체', 'US Schools', 'UK Schools', 'Other Schools'],
 };
-const getTags = (tagName: string): string[] => {
+const getTags = (tagName: keyof typeof TAGS): string[] => {
   return TAGS[tagName];
 };
 interface Props {
