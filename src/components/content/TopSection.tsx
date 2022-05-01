@@ -14,6 +14,7 @@ import {useSelector} from 'react-redux';
 import {RootState} from '~/redux/store';
 import {CarouselData} from '~/redux/webinar/type';
 import {normalize} from '~/utils/responsiveSize';
+import {s_webinar, useLocale} from '~/wording';
 import WebinarCategory from './WebinarCategory';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -21,8 +22,9 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 interface RenderItemProps<T> {
   item: T;
   index: number;
+  t: any;
 }
-function renderItem({item, index}: RenderItemProps<CarouselData>) {
+function renderItem({item, index, t}: RenderItemProps<CarouselData>) {
   const limitRate: number =
     item.voluteerCount / item.volunteerLimit >= 1
       ? 100
@@ -56,18 +58,18 @@ function renderItem({item, index}: RenderItemProps<CarouselData>) {
         </View>
         <View style={styles.limitGraphWrap}>
           <Text style={styles.limitGraphCountText}>
-            현재 신청 {item.voluteerCount} 명
+            {t(s_webinar.n_already_registered(item.voluteerCount))}
           </Text>
           <View style={styles.limitProgressBar}>
             <View style={[styles.limitProgress, progressBarWidthStyle]} />
           </View>
           <Text style={styles.limitGraphLimitText}>
-            전체 정원 {item.volunteerLimit} 명
+            {t(s_webinar.up_to_n_attendees(item.volunteerLimit))}
           </Text>
         </View>
         <View style={styles.goDetailWrap}>
           <TouchableOpacity style={styles.goDetailButton}>
-            <Text style={styles.goDetailButtonText}>자세히 보기</Text>
+            <Text style={styles.goDetailButtonText}>{t(s_webinar.detail)}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -80,13 +82,14 @@ export default function TopSection() {
   const list = useSelector<RootState, CarouselData[]>(
     state => state.webinar.carouselList,
   );
+  const {t} = useLocale();
   return (
     <View style={styles.carouselContainer}>
       <Carousel
         // ref={carouselRef}
         data={list}
         onSnapToItem={(page: number) => setIndex(page)}
-        renderItem={renderItem}
+        renderItem={props => renderItem({...props, t})}
         sliderWidth={SCREEN_WIDTH}
         itemWidth={SCREEN_WIDTH}
       />

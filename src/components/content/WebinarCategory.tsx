@@ -9,9 +9,11 @@ import {
 } from 'react-native';
 import {callApiWebinarCategories} from '~/api/api';
 import {normalize} from '~/utils/responsiveSize';
+import {s_webinar, useLocale} from '~/wording';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function WebinarCategory() {
+  const {t} = useLocale();
   const [categories, setCategories] = useState<string[]>([]);
   const getCategories = async () => {
     const data = await callApiWebinarCategories();
@@ -22,7 +24,7 @@ export default function WebinarCategory() {
   }, []);
   return (
     <View style={styles.categoryContainer}>
-      <Text style={styles.title}>카테고리별 웨비나</Text>
+      <Text style={styles.title}>{t(s_webinar.hash_tag)}</Text>
       <ScrollView
         style={styles.horizontalScrollView}
         horizontal={true}

@@ -14,29 +14,40 @@ import Lecture from '~/screens/lecture/Lecture';
 import MyActivity from '~/screens/myActivity/MyActivity';
 import Tutor from '~/screens/tutor/Tutor';
 import {normalize} from '~/utils/responsiveSize';
+import {s_common, useLocale} from '~/wording';
 
 const {Navigator, Screen} = createBottomTabNavigator();
 export default function BottomNavigator() {
+  const {t} = useLocale();
+
   return (
     <Navigator
       screenOptions={{headerShown: false}}
       initialRouteName="content"
       tabBar={props => <BottomTabBar {...props} />}>
-      <Screen name="home" options={{tabBarLabel: '홈'}} component={Home} />
+      <Screen
+        name="home"
+        options={{tabBarLabel: t(s_common.home)}}
+        component={Home}
+      />
       <Screen
         name="lecture"
-        options={{tabBarLabel: '1:1수업'}}
+        options={{tabBarLabel: t(s_common.lesson_1_1)}}
         component={Lecture}
       />
-      <Screen name="tutor" options={{tabBarLabel: '튜터'}} component={Tutor} />
+      <Screen
+        name="tutor"
+        options={{tabBarLabel: t(s_common.tutor)}}
+        component={Tutor}
+      />
       <Screen
         name="content"
-        options={{tabBarLabel: '콘텐츠'}}
+        options={{tabBarLabel: t(s_common.original)}}
         component={Content}
       />
       <Screen
         name="myActivity"
-        options={{tabBarLabel: '학습활동'}}
+        options={{tabBarLabel: t(s_common.log)}}
         component={MyActivity}
       />
     </Navigator>

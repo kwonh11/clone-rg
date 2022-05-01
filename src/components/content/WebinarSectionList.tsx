@@ -12,6 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/EvilIcons';
 import {WebinarCard, WebinarCollection} from '~/redux/webinar/type';
 import {normalize} from '~/utils/responsiveSize';
+import {useLocale} from '~/wording';
 import WebinarCardPortrait from './WebinarCardPortrait';
 
 const TAGS = {
@@ -53,6 +54,7 @@ interface Props {
 }
 export default function WebinarSectionList(props: Props) {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+  const {t} = useLocale();
 
   const {item, isLast} = props;
 
